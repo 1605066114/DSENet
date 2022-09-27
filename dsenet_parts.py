@@ -1,13 +1,11 @@
-""" Parts of the U-Net model """
-"""https://github.com/milesial/Pytorch-UNet/blob/master/unet/unet_parts.py"""
 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
+#Define the three convolutions of each block according to the illustration of the paper,here padding=1 is used to ensure constant resolution, although it is not mentioned in the paper,the same applies to the BN layer
 class TripleConv(nn.Module):
-    """(convolution => [BN] => ReLU) * 2"""
+
 
     def __init__(self, in_channels, out_channels):
         super().__init__()
@@ -26,9 +24,9 @@ class TripleConv(nn.Module):
     def forward(self, x):
         return self.tripleconv(x)
 
-
+#Define the convolutional downsampling block in the paper
 class Down(nn.Module):
-    """Downscaling with maxpool then double conv"""
+
 
     def __init__(self, in_channels, out_channels):
         super().__init__()
@@ -40,9 +38,9 @@ class Down(nn.Module):
     def forward(self, x):
         return self.maxpool_conv(x)
 
-
+#Define the convolutional upsampling block in the paper
 class Up(nn.Module):
-    """Upscaling then double conv"""
+
 
     def __init__(self, in_channels, out_channels, bilinear=True):
         super().__init__()
@@ -67,7 +65,7 @@ class Up(nn.Module):
         x = torch.cat([x2, x1], dim=1)
         return self.conv(x)
 
-
+#Define the last convolution layer
 class OutConv(nn.Module):
     def __init__(self, in_channels, out_channels):
         super(OutConv, self).__init__()
