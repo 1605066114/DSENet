@@ -1,5 +1,5 @@
-from model.dsenet_model  import Dsenet
-from utils.dataset import ISBI_Loader
+from dsenet_model  import Dsenet
+from dataset import ISBI_Loader
 from torch import optim
 import torch.nn as nn
 import torch
@@ -9,7 +9,7 @@ from tensorboardX import SummaryWriter
 def train_net(net, device, data_path, epochs=1000, batch_size=4, lr=0.0001):
     # Load training set
     iter_num=0
-    writer = SummaryWriter('E:/DSEnet/log/')
+    writer = SummaryWriter('E:/DSEnet/log/')          #Training with tensorboard visualization
     isbi_dataset = ISBI_Loader(data_path)
     train_loader = torch.utils.data.DataLoader(dataset=isbi_dataset,
                                                batch_size=batch_size,
@@ -82,6 +82,6 @@ if __name__ == "__main__":
 
 
     net.to(device=device)
-    #
+    #Specify the training address and start training
     data_path = "data/train/"
     train_net(net, device, data_path)
