@@ -6,7 +6,7 @@ import torch
 from tensorboardX import SummaryWriter
 
 
-def train_net(net, device, data_path, epochs=1000, batch_size=4, lr=0.0001):
+def train_net(net, device, data_path, epochs=1000, batch_size=16, lr=0.0001):
     # Load training set
     iter_num=0
     writer = SummaryWriter('E:/DSEnet/log/')          #Training with tensorboard visualization
